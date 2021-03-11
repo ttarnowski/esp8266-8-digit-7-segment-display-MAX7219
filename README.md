@@ -33,3 +33,11 @@ In Visual Studio Code go to:
 Type `PlatformIO: Upload`
 
 Press Enter
+
+## Link to YouTube Video (Day16):
+
+https://www.youtube.com/watch?v=uc0fD_p7w6A
+
+## All Days List:
+
+https://github.com/ttarnowski/100DaysOfCodeInIoT

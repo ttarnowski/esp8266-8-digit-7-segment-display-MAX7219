@@ -19,9 +19,9 @@ void setup() {
 
   delay(1000);
 
-  ledController.setChar(0, 0, '1', false);
-  ledController.setChar(0, 1, '2', true);
-  ledController.setChar(0, 2, '3', false);
+  for (unsigned int i = 0; i < 8; i++) {
+    ledController.setChar(0, i, (char)8 - i, false);
+  }
 }
 
 void loop() {}
