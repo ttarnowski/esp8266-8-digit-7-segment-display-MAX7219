@@ -2,6 +2,7 @@
 #include <DHTesp.h>
 #include <LedController.hpp>
 #include <Timer.hpp>
+#include <ESP8266WiFiMulti.h>
 
 #define TEMP_SENSOR_PIN D1
 #define LED_CONTROL_CLK_PIN D5
@@ -93,7 +94,7 @@ void syncTime() {
               struct tm timeinfo;
               gmtime_r(&now, &timeinfo);
 
-              char value[8];
+              char value[16];
               sprintf(value, "%02d .%02d .%02d", timeinfo.tm_hour,
                       timeinfo.tm_min, timeinfo.tm_sec);
 
@@ -105,9 +106,17 @@ void syncTime() {
       30 * 1000);
 }
 
+ESP8266WiFiMulti wifiMulti;
+
 void setup() {
   Serial.begin(115200);
-  delay(1000);
+  
+  wifiMulti.addAP("YOUR_SSID", "YOUR_PASSWORD");
+
+  while (wifiMulti.run() != WL_CONNECTED) {
+    delay(100);
+  }
+
   dht.setup(TEMP_SENSOR_PIN, DHTesp::DHT11);
 
   ledController.activateAllSegments();
@@ -123,7 +132,7 @@ void setup() {
               float humidity = dht.getHumidity();
               float temperature = dht.getTemperature();
 
-              char value[8];
+              char value[16];
               sprintf(value, "%02.2f %02.1f", temperature, humidity);
 
               Serial.println(value);
